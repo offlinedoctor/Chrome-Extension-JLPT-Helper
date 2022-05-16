@@ -10,18 +10,27 @@ class MainBar extends React.Component
 		super();
 		this.onMainBarClick = this.onMainBarClick.bind(this);
 		this.ConjugateWord = this.ConjugateWord.bind(this);
+		this.DictionaryWord = this.DictionaryWord.bind(this);
 	}
 
 	ConjugateWord()
 	{
 		fetch("https://jisho.org/api/v1/search/words?keyword=" + document.getElementById("conjugatedWord").value)
 		.then(word => word.json())
-		.then(word => 
+		.then(theWord => 
 		{
-			var stringRequest = word.data[0].japanese[0].word;
-			var newURL = "http://www.japaneseverbconjugator.com/VerbDetails.asp?txtVerb=" + stringRequest;
-			window.open(newURL);	
+			var stringRequest = theWord.data[0].japanese[0].word.toString();
+			var newURL = "https://cooljugator.com/ja/" + stringRequest;
+			console.log(newURL.toString());
+			window.open(newURL.toString());
 		});
+	}
+	
+	DictionaryWord()
+	{
+		var dictionaryWord = document.getElementById("dictionaryWord").value;
+		var newURL = "https://jisho.org/search/" + dictionaryWord;
+		window.open(newURL);
 	}
 
 	onMainBarClick(event)
@@ -50,7 +59,9 @@ class MainBar extends React.Component
 					<Button style={{marginTop: "15px", marginBottom: "15px", backgroundColor: "#ab47bc"}} id="duolingo" onClick={this.onMainBarClick} variant="contained">Duolingo</Button>
 					<Button style={{marginTop: "15px", marginBottom: "15px", backgroundColor: "#ab47bc"}} id="cheatSheet" onClick={this.onMainBarClick} variant="contained">Grammar Cheat Sheet</Button>
 					<TextField style={{marginTop: "15px"}} id="conjugatedWord" label="Word to Conjugate" variant="outlined" />
-					<Button style={{backgroundColor: "#ab47bc"}} onClick={this.ConjugateWord} variant="contained">Conjugate</Button>
+					<Button style={{backgroundColor: "#ab47bc"}} onClick={this.ConjugateWord} variant="contained">Conjugate Verb</Button>
+					<TextField style={{marginTop: "25px"}} id="dictionaryWord" label="Dictionary Search" variant="outlined" />
+					<Button style={{backgroundColor: "#ab47bc"}} onClick={this.DictionaryWord} variant="contained">Dictionary Search</Button>
 				</div>
 		);
 	}
