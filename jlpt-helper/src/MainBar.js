@@ -11,19 +11,12 @@ class MainBar extends React.Component
 		this.onMainBarClick = this.onMainBarClick.bind(this);
 		this.ConjugateWord = this.ConjugateWord.bind(this);
 		this.DictionaryWord = this.DictionaryWord.bind(this);
+		this.launchOtherTranslator = this.launchOtherTranslator.bind(this);
 	}
 
 	ConjugateWord()
 	{
-		fetch("https://jisho.org/api/v1/search/words?keyword=" + document.getElementById("conjugatedWord").value)
-		.then(word => word.json())
-		.then(theWord => 
-		{
-			var stringRequest = theWord.data[0].japanese[0].word.toString();
-			var newURL = "https://cooljugator.com/ja/" + stringRequest;
-			console.log(newURL.toString());
-			window.open(newURL.toString());
-		});
+		window.open("http://www.japaneseverbconjugator.com/");
 	}
 	
 	DictionaryWord()
@@ -51,6 +44,11 @@ class MainBar extends React.Component
 		}
 	}
 	
+	launchOtherTranslator()
+	{
+		window.open("https://www.deepl.com/translator/");
+	}
+
 	render()
 	{
 		return(
@@ -58,7 +56,7 @@ class MainBar extends React.Component
 					<Button style={{marginBottom: "15px", backgroundColor: "#ab47bc"}} id="drills" onClick={this.onMainBarClick} variant="contained">JLPT Drills</Button>
 					<Button style={{marginTop: "15px", marginBottom: "15px", backgroundColor: "#ab47bc"}} id="duolingo" onClick={this.onMainBarClick} variant="contained">Duolingo</Button>
 					<Button style={{marginTop: "15px", marginBottom: "15px", backgroundColor: "#ab47bc"}} id="cheatSheet" onClick={this.onMainBarClick} variant="contained">Grammar Cheat Sheet</Button>
-					<TextField style={{marginTop: "15px"}} id="conjugatedWord" label="Word to Conjugate" variant="outlined" />
+					<Button style={{marginTop: "15px", marginBottom: "15px", backgroundColor: "#ab47bc"}} id="cheatSheet" onClick={this.launchOtherTranslator} variant="contained">Alternate Translator</Button>
 					<Button style={{backgroundColor: "#ab47bc"}} onClick={this.ConjugateWord} variant="contained">Conjugate Verb</Button>
 					<TextField style={{marginTop: "25px"}} id="dictionaryWord" label="Dictionary Search" variant="outlined" />
 					<Button style={{backgroundColor: "#ab47bc"}} onClick={this.DictionaryWord} variant="contained">Dictionary Search</Button>
