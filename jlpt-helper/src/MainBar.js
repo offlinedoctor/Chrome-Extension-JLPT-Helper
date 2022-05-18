@@ -2,6 +2,10 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import StyleSheet from './StyleSheet.css';
 import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 class MainBar extends React.Component
 {
@@ -12,6 +16,7 @@ class MainBar extends React.Component
 		this.ConjugateWord = this.ConjugateWord.bind(this);
 		this.DictionaryWord = this.DictionaryWord.bind(this);
 		this.launchOtherTranslator = this.launchOtherTranslator.bind(this);
+		this.dropDownListSelection = this.dropDownListSelection.bind(this);
 	}
 
 	ConjugateWord()
@@ -44,6 +49,19 @@ class MainBar extends React.Component
 		}
 	}
 	
+	dropDownListSelection(event)
+	{
+		switch(event.target.id)
+		{
+			case "hiraganaPronunciation":
+				window.open("https://www.youtube.com/watch?v=WH0UX5oQVzM&ab_channel=SpeakJapaneseNaturally");
+				break;
+			case "shadowing":
+				window.open("https://www.youtube.com/watch?v=t8OuFbysmcw&list=PLAeylY-fOtkGna-23dOIGmqccmIFu1BxP&index=1&ab_channel=Let%27slearnJapanese-MihoChannel");
+				break;
+		}
+	}
+	
 	launchOtherTranslator()
 	{
 		window.open("https://www.deepl.com/translator/");
@@ -58,8 +76,20 @@ class MainBar extends React.Component
 					<Button style={{marginTop: "15px", marginBottom: "15px", backgroundColor: "#ab47bc"}} id="cheatSheet" onClick={this.onMainBarClick} variant="contained">Grammar Cheat Sheet</Button>
 					<Button style={{marginTop: "15px", marginBottom: "15px", backgroundColor: "#ab47bc"}} id="cheatSheet" onClick={this.launchOtherTranslator} variant="contained">Alternate Translator</Button>
 					<Button style={{backgroundColor: "#ab47bc"}} onClick={this.ConjugateWord} variant="contained">Conjugate Verb</Button>
+					<FormControl style={{marginTop: "15px", marginBottom: "15px"}} fullWidth>
+						<InputLabel>Pronunciation Resources</InputLabel>
+						<Select>
+							<MenuItem>
+								<Button style={{marginTop: "15px", marginBottom: "15px", backgroundColor: "#ab47bc"}} id="hiraganaPronunciation" onClick={this.dropDownListSelection} variant="contained">Hiragana Pronunciation</Button>
+							</MenuItem>
+							<MenuItem>
+								<Button style={{marginTop: "15px", marginBottom: "15px", backgroundColor: "#ab47bc"}} id="shadowing" onClick={this.dropDownListSelection} variant="contained">Shadowing Words</Button>
+							</MenuItem>
+						</Select>
+					</FormControl>
 					<TextField style={{marginTop: "25px"}} id="dictionaryWord" label="Dictionary Search" variant="outlined" />
 					<Button style={{backgroundColor: "#ab47bc"}} onClick={this.DictionaryWord} variant="contained">Dictionary Search</Button>
+
 				</div>
 		);
 	}
